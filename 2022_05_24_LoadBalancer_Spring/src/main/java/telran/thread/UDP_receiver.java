@@ -1,5 +1,6 @@
 package telran.thread;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import telran.model.ServerInfo;
@@ -15,14 +16,13 @@ public class UDP_receiver {
 
     private final static int datagram_size = 1024;
 
-    public UDP_receiver(IServerStorage serverStorage, int PORT) {
+    public UDP_receiver(IServerStorage serverStorage, @Value("${udp.balancer.port}") int udp_port) {
         this.serverStorage = serverStorage;
-        this.udp_port = PORT;
+        this.udp_port = udp_port;
     }
 
     @Async("threadExecutor")
     public void run() {
-
         try {
             DatagramSocket datagramSocket = new DatagramSocket(udp_port);
             byte[] input = new byte[datagram_size];
