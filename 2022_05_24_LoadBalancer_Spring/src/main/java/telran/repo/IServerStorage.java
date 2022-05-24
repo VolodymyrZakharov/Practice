@@ -1,4 +1,7 @@
 package telran.repo;
+
+import telran.model.ServerInfo;
+
 /**
  * Data structure for storing the info about servers
  */
