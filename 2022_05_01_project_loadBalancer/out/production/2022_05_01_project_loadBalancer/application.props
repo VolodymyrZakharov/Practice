@@ -1,0 +1,5 @@
+udp.balancer.port=3000
+udp.gateway.port=2007
+gateway.host=localhost
+transmit.time=100
+cleaner.time=1000

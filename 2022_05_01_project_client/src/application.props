@@ -1,0 +1,6 @@
+tcp.gateway.port=2000
+gateway.host=localhost
+simultaneous.connection.number=100
+connection.number=1000
+messages.per.connection=1000
+message=Hello_server
