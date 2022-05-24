@@ -12,6 +12,7 @@ import java.util.concurrent.Executor;
 @EnableAsync
 public class Config {
 
+
     @Bean
     public Executor threadExecutor() {
         return new SimpleAsyncTaskExecutor();
