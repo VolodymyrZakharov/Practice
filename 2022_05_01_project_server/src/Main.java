@@ -28,17 +28,13 @@ public class Main {
         int connectionsNumber = Integer.parseInt(props.getProperty(TCP_CONNECTION_NUMBER_KEY));
 
         AtomicInteger socketCounter = new AtomicInteger(0);
-        ServerSocket serverSocket = new ServerSocket(selfTcpPort);
 
         Thread serverReporter = new Thread(new ServerReporter(selfTcpPort, updatePeriod, socketCounter, balancerHost, balancerUdpPort));
         serverReporter.setDaemon(true);
         serverReporter.start();
 
-        ExecutorService executorService = Executors.newFixedThreadPool(connectionsNumber);
-        while (true) {
-            Socket socket = serverSocket.accept();
-            socketCounter.incrementAndGet();
-            executorService.execute(new ServerTask(socket, socketCounter, selfTcpPort));
-        }
+        TcpServer tcpServer = new TcpServer(socketCounter, selfTcpPort, connectionsNumber);
+        new Thread(tcpServer).start();
+
     }
 }
