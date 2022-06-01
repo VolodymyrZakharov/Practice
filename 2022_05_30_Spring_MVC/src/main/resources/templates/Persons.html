@@ -7,8 +7,8 @@
 <body>
 <h1>Persons list</h1>
 
-<ul th:each="person : ${personsList}">
-    <li th:text="${person.getName + person.getLastName}">..</li>
+<ul>
+    <li th:each="person : ${personsList}" th:text="${person.getName} + ' ' + ${person.getLastName}">..</li>
 </ul>
 </body>
 </html>
