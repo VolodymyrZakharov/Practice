@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <title>Edit person</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+
+<div class="row">
+    <div class="col m6 offset-m3">
+        <h3>This is Home Page</h3>
+        <form th:action="@{/dear-user}" th:text="${userName}" method="post">
+            <div class="input-field col s6">
+                <input placeholder="Name" id="name" name="name" type="text" th:field="*{userName}" class="validate">
+                <label for="name">First Name</label>
+            </div>
+            <div class="col m12">
+                <button class="waves-effect waves-light btn indigo darken-3" value="Save">to Dear User</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

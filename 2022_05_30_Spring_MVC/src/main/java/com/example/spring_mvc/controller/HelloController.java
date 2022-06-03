@@ -4,6 +4,7 @@ import com.example.spring_mvc.model.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
@@ -42,11 +43,19 @@ public class HelloController {
 
     @GetMapping("/hello/homework")
     public String getPersons(Model model) {
-        Person Vasya = new Person("Vasya ", "Vasin");
-        Person Petya = new Person("Petya ", "Petin");
-        Person Vova = new Person("Vova ", "Vovin");
-        List<Person> list = List.of(Vasya, Petya, Vova);
-        model.addAttribute("personsList", list);
+        model.addAttribute("personsList", personsList);
         return "Persons";
     }
+
+    @GetMapping("/persons-json")
+    @ResponseBody
+    public List<Person> getPersonsJSon(Model model) {
+        return personsList;
+    }
+
+    List<Person> personsList = List.of(
+            new Person("Vasya ", "Vasin"),
+            new Person("Petya ", "Petin"),
+            new Person("Vova ", "Vovin"));
+
 }
