@@ -15,6 +15,12 @@ public class PersonController {
         this.personService = personService;
     }
 
+
+    @GetMapping("/")
+    public String start() {
+        return "forward:/home-page";
+    }
+
     @GetMapping("/home-page")
     public String home(Model model) {
         model.addAttribute("personsList", personService.getAll());
