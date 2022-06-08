@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import people.model.Person;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class PersonRepo {
@@ -32,9 +33,7 @@ public class PersonRepo {
      * @return
      */
     public Person delete(int id) {
-        Person res = source.get(id);
-        source.remove(id);
-        return res;
+        return source.remove(id);
     }
 
     /**
@@ -51,6 +50,7 @@ public class PersonRepo {
      * @return all found persons
      */
     public List<Person> findAll() {
-        return new ArrayList(source.values());
+        return source.values().stream()
+                .sorted(Comparator.comparing(Person::getId)).collect(Collectors.toList());
     }
 }
