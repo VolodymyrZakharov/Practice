@@ -1,6 +1,5 @@
 package rest_api.service;
 
-
 import org.springframework.stereotype.Service;
 import rest_api.model.Person;
 import rest_api.repo.PersonRepo;
@@ -20,8 +19,10 @@ public class PersonService {
         return personRepo.save(person);
     }
 
-    public Person remove(Person person) {
-        return personRepo.delete(person.getId());
+    public Person remove(int id) {
+        Person person = get(id);
+        personRepo.delete(person);
+        return person;
     }
 
     public List<Person> getAll() {
@@ -29,6 +30,6 @@ public class PersonService {
     }
 
     public Person get(int id) {
-        return personRepo.find(id).orElseThrow();
+        return personRepo.findById(id).orElseThrow();
     }
 }
