@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface PersonRepo extends JpaRepository<Person, Integer> {
 
-    public List<Person> findAllByName(String name);
+    public List<Person> findAllByNameIgnoreCase(String name);
 
-    public List<Person> findAllByLastname(String lastName);
+    public List<Person> findAllByLastnameIgnoreCase(String lastName);
 
-   public List<Person> findAllByAge(Integer age);
+    public List<Person> findAllByNameIgnoreCaseAndLastnameIgnoreCase(String name, String lastName);
 }

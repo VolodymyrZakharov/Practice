@@ -1,0 +1,51 @@
+package rest_api.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import rest_api.dto.AddressDto;
+import rest_api.service.AddressService;
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/addresses")
+public class AddressController {
+
+    private final AddressService addressService;
+
+    public AddressController(AddressService addressService) {
+        this.addressService = addressService;
+    }
+
+    /**
+     * Get the Address by id
+     */
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public AddressDto get(@PathVariable Integer id) {
+        return addressService.get(id);
+    }
+
+    /**
+     * Greate a new Address
+     */
+    @PostMapping
+    public AddressDto create(@RequestBody AddressDto addressDto) {
+        return addressService.create(addressDto);
+    }
+
+    @PutMapping
+    public void edit(@RequestBody AddressDto addressDto) {
+        addressService.edit(addressDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable int id) {
+        addressService.remove(id);
+    }
+
+    @GetMapping
+    public List<AddressDto> getAll(@RequestParam(required = false) Optional<Integer> personId) {
+        return addressService.getAllByPersonId(personId);
+    }
+}

@@ -5,6 +5,7 @@ import rest_api.model.Person;
 import rest_api.repo.PersonRepo;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonService {
@@ -25,8 +26,14 @@ public class PersonService {
         return person;
     }
 
-    public List<Person> getAll() {
-        return personRepo.findAll();
+    public List<Person> getAllByNameAndLastName(Optional<String> name, Optional<String> lastName) {
+        if (name.isPresent() && lastName.isPresent()) {
+            return personRepo.findAllByNameIgnoreCaseAndLastnameIgnoreCase(name.get(), lastName.get());
+        } else if (name.isPresent()) {
+            return personRepo.findAllByNameIgnoreCase(name.get());
+        } else if (lastName.isPresent()) {
+            return personRepo.findAllByLastnameIgnoreCase(lastName.get());
+        } else return personRepo.findAll();
     }
 
     public Person get(int id) {
