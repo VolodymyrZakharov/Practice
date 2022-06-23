@@ -12,7 +12,7 @@ import java.util.List;
 public class DogController {
 
     @Autowired
-    DogService dogService;
+   private DogService dogService;
 
     @PostMapping("/dogs")
     public void createDog(@RequestBody DogRequestDTO request) {

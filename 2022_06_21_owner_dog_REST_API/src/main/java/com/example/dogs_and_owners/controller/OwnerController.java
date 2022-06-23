@@ -12,7 +12,7 @@ import java.util.List;
 public class OwnerController {
 
     @Autowired
-    OwnerService ownerService;
+   private OwnerService ownerService;
 
     @PostMapping("/owners")
     public void createOwner(@RequestBody OwnerRequestDTO request) {

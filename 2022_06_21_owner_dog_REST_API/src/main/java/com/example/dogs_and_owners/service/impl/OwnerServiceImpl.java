@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,15 +70,19 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public void dogToggle(long owner_id, long dog_id) {
-        Owner owner = ownerRepository.findById(owner_id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        Dog dog = dogRepository.findById(dog_id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        List<Dog> list = dogRepository.findAllByOwnerId(owner_id);
+    public void dogToggle(long ownerId, long dogId) {
+        Owner owner = ownerRepository.findById(ownerId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Dog dog = dogRepository.findById(dogId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        if (list.contains(dog)) {
-            dog.setOwner(null);
-        } else dog.setOwner(owner);
+        if (dog.getOwner() != null && !dog.getOwner().getId().equals(ownerId)) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
+
+        dog.setOwner(dog.getOwner() == null ? owner : null);
+        dog.setRegistrationDate(dog.getOwner() == null ? LocalDate.now() : null);
 
         dogRepository.save(dog);
     }
+
+
 }
